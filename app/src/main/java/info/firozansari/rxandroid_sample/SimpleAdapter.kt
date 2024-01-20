@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 class SimpleAdapter(private val mContext: Context) :
     RecyclerView.Adapter<SimpleAdapter.ViewHolder?>() {
     private val mStrings: MutableList<String> = ArrayList()
-    fun setStrings(newStrings: List<String>?) {
+    fun setStrings(newStrings: List<String>) {
         mStrings.clear()
-        mStrings.addAll(newStrings!!)
+        mStrings.addAll(newStrings)
         notifyDataSetChanged()
     }
 

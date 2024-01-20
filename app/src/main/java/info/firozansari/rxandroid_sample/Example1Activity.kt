@@ -26,32 +26,32 @@ class Example1Activity : AppCompatActivity() {
         )
         listObservable.observeOn(Schedulers.newThread())
         listObservable.subscribeOn(AndroidSchedulers.mainThread())
-        listObservable.subscribe(object : Observer<List<String?>?>() {
+        listObservable.subscribe(object : Observer<List<String>> {
             override fun onComplete() {
                 Log.d(TAG, "onComplete: called.")
             }
 
             override fun onError(e: Throwable?) {}
             override fun onSubscribe(d: Disposable?) {}
-            override fun onNext(colors: List<String?>?) {
+            override fun onNext(colors: List<String>) {
                 //This is going to be running in Main thread.
-                mSimpleAdapter!!.setStrings(colors)
+                mSimpleAdapter?.setStrings(colors)
             }
         })
     }
 
     private fun configureLayout() {
         setContentView(R.layout.activity_example_1)
-        mColorListView = findViewById(R.id.color_list) as RecyclerView?
-        mColorListView.setLayoutManager(LinearLayoutManager(this))
+        mColorListView = findViewById<RecyclerView>(R.id.color_list)
+        mColorListView?.layoutManager = LinearLayoutManager(this)
         mSimpleAdapter = SimpleAdapter(this)
-        mColorListView.setAdapter(mSimpleAdapter)
+        mColorListView?.adapter = mSimpleAdapter
     }
 
     companion object {
         val TAG = Example1Activity::class.java.simpleName
         private val colorList: List<String>
-            private get() {
+            get() {
                 val colors = ArrayList<String>()
                 colors.add("blue")
                 colors.add("green")

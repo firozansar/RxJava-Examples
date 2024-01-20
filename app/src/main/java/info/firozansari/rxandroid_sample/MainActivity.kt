@@ -1,22 +1,16 @@
 package info.firozansari.rxandroid_sample
 
-import android.R
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import io.reactivex.rxjava3.subjects.PublishSubject
 
 class MainActivity : AppCompatActivity() {
-    private var mCounterDisplay: TextView? = null
-    private var mIncrementButton: Button? = null
-    private var mCounterEmitter: PublishSubject<Int>? = null
-    private var mCounter = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         setupExampleList()
     }
 
@@ -27,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         exampleList.setAdapter(ExampleAdapter(this, getExamples()))
     }
 
-    private fun getExamples(): MutableList<ExampleActivityAndName>? {
+    private fun getExamples(): List<ExampleActivityAndName> {
         val exampleActivityAndNames: MutableList<ExampleActivityAndName> = ArrayList()
         exampleActivityAndNames.add(
             ExampleActivityAndName(
@@ -56,12 +50,6 @@ class MainActivity : AppCompatActivity() {
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 Example5Activity::class.java,
-                "Example 5: Value Display"
-            )
-        )
-        exampleActivityAndNames.add(
-            ExampleActivityAndName(
-                Example6Activity::class.java,
                 "Example 6: City Search"
             )
         )
