@@ -29,17 +29,12 @@
             />
 
         <activity
-            android:name=".Example3Activity"
+            android:name=".NetworkActivity"
             android:parentActivityName=".MainActivity"
             />
 
         <activity
-            android:name=".OperatorsActivity"
-            android:parentActivityName=".MainActivity"
-            />
-
-        <activity
-            android:name=".Example5Activity"
+            android:name=".SearchActivity"
             android:parentActivityName=".MainActivity"
             />
 

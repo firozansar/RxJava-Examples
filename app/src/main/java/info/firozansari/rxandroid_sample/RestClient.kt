@@ -30,20 +30,15 @@ class RestClient(private val mContext: Context) {
 
     private fun createTvShowList(): List<String> {
         val tvShows: MutableList<String> = ArrayList()
-        tvShows.add("The Joy of Painting")
-        tvShows.add("The Simpsons")
-        tvShows.add("Futurama")
         tvShows.add("Rick & Morty")
         tvShows.add("The X-Files")
         tvShows.add("Star Trek: The Next Generation")
-        tvShows.add("Archer")
-        tvShows.add("30 Rock")
-        tvShows.add("Bob's Burgers")
         tvShows.add("Breaking Bad")
         tvShows.add("Parks and Recreation")
         tvShows.add("House of Cards")
         tvShows.add("Game of Thrones")
-        tvShows.add("Law And Order")
+        tvShows.add("The Simpsons")
+        tvShows.add("Futurama")
         return tvShows
     }
 

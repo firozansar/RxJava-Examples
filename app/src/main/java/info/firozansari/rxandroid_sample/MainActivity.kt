@@ -8,17 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var exampleList: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupExampleList()
+        setupList()
     }
 
-    private fun setupExampleList() {
-        val exampleList = findViewById<View>(R.id.example_list) as RecyclerView
+    private fun setupList() {
+        exampleList = findViewById<View>(R.id.example_list) as RecyclerView
         exampleList.setHasFixedSize(true)
         exampleList.layoutManager = LinearLayoutManager(this)
-        exampleList.setAdapter(ExampleAdapter(this, getExamples()))
+        exampleList.adapter = ExampleAdapter(this, getExamples())
     }
 
     private fun getExamples(): List<ExampleActivityAndName> {
@@ -26,31 +27,25 @@ class MainActivity : AppCompatActivity() {
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 SimpleExampleActivity::class.java,
-                "Example 1: Simple Color List"
+                "Simple Examples"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 Example2Activity::class.java,
-                "Example 2: Favorite Tv Shows"
+                "Favorite Tv Shows"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                Example3Activity::class.java,
-                "Example 3: Improved Favorite Tv Shows"
+                NetworkActivity::class.java,
+                "Network Example"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                OperatorsActivity::class.java,
-                "Example 4: Button Counter"
-            )
-        )
-        exampleActivityAndNames.add(
-            ExampleActivityAndName(
-                Example5Activity::class.java,
-                "Example 5: City Search"
+                SearchActivity::class.java,
+                "Search Example"
             )
         )
         return exampleActivityAndNames

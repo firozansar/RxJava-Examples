@@ -26,7 +26,7 @@ class Example2Activity : AppCompatActivity() {
     }
 
     private fun createObservable() {
-        val tvShowObservable: Observable<List<String>> = Observable.fromCallable { mRestClient?.favoriteTvShows }
+        val tvShowObservable: Observable<List<String>> = Observable.fromCallable { mRestClient.favoriteTvShows }
         tvShowObservable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +43,7 @@ class Example2Activity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mTvShowSubscription != null && !mTvShowSubscription.isDisposed()) {
+        if (mTvShowSubscription != null && !mTvShowSubscription.isDisposed) {
             mTvShowSubscription.dispose()
         }
     }
