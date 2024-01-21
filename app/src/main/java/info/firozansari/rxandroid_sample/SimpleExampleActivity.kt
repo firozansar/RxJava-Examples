@@ -2,11 +2,12 @@ package info.firozansari.rxandroid_sample
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -15,13 +16,11 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 
-class SimpleExampleActivity : AppCompatActivity() {
+class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private lateinit var mColorListView: RecyclerView
-    private lateinit var mSimpleAdapter: SimpleAdapter
-
-    private lateinit var mCounterDisplay: TextView
-    private lateinit var mIncrementButton: Button
+    private lateinit var resultTxt: TextView
+    private lateinit var choiceSpinner: Spinner
+    private lateinit var choiceList: List<String>
 
     private lateinit var mCounterEmitter: PublishSubject<Int>
 
@@ -30,6 +29,7 @@ class SimpleExampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         configureLayout()
+        populateSpinner()
         createObservable()
         createCounterEmitter()
     }
@@ -49,23 +49,16 @@ class SimpleExampleActivity : AppCompatActivity() {
             override fun onSubscribe(d: Disposable?) {}
             override fun onNext(colors: List<String>) {
                 //This is going to be running in Main thread.
-                mSimpleAdapter.setStrings(colors)
+                //mSimpleAdapter.setStrings(colors)
             }
         })
     }
 
     private fun configureLayout() {
         setContentView(R.layout.activity_simple_example)
-        mColorListView = findViewById(R.id.color_list)
-        mColorListView.layoutManager = LinearLayoutManager(this)
-        mSimpleAdapter = SimpleAdapter(this)
-        mColorListView.adapter = mSimpleAdapter
-
-        mCounterDisplay = findViewById(R.id.counter_display)
-        mCounterDisplay.text = mCounter.toString()
-
-        mIncrementButton = findViewById(R.id.increment_button)
-        mIncrementButton.setOnClickListener { onIncrementButtonClick() }
+        resultTxt = findViewById(R.id.result_text)
+        choiceSpinner = findViewById(R.id.choice_spinner)
+        choiceSpinner.onItemSelectedListener = this
     }
 
     private fun createCounterEmitter() {
@@ -75,14 +68,30 @@ class SimpleExampleActivity : AppCompatActivity() {
             override fun onError(e: Throwable?) {}
             override fun onSubscribe(d: Disposable?) {}
             override fun onNext(integer: Int) {
-                mCounterDisplay.text = integer.toString()
+                //mCounterDisplay.text = integer.toString()
             }
         })
+    }
+
+    private fun populateSpinner(){
+        choiceList = resources.getStringArray(R.array.planets_array).toList()
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.planets_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears.
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner.
+            choiceSpinner.adapter = adapter
+        }
     }
 
     private fun onIncrementButtonClick() {
         mCounter++
         mCounterEmitter.onNext(mCounter)
+        resultTxt.text = mCounter.toString()
     }
 
     override fun onDestroy() {
@@ -101,5 +110,14 @@ class SimpleExampleActivity : AppCompatActivity() {
                 colors.add("black")
                 return colors
             }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val value = parent?.getItemAtPosition(position).toString()
+        resultTxt.text = value
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        resultTxt.text = "Nothing selected"
     }
 }

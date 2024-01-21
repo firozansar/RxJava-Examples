@@ -61,7 +61,7 @@ class RestClient(private val mContext: Context) {
         if (searchString.isEmpty()) {
             return ArrayList()
         }
-        val cities = mContext.resources.getStringArray(R.array.city_list)
+        val cities = mContext.resources.getStringArray(R.array.planets_array)
         val toReturn: MutableList<String> = ArrayList()
         for (city in cities) {
             if (city.lowercase(Locale.getDefault())
