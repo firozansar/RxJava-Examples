@@ -32,13 +32,13 @@ class SimpleAdapter(private val mContext: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mColorDisplay.text = mStrings[position]
-        holder.itemView.setOnClickListener(View.OnClickListener {
+        holder.itemView.setOnClickListener {
             Toast.makeText(
                 mContext,
                 mStrings[position],
                 Toast.LENGTH_SHORT
             ).show()
-        })
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

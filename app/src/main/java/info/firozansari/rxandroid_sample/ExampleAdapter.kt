@@ -24,10 +24,10 @@ class ExampleAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mNameDisplay.text = mExamples[position].mExampleName
-        holder.itemView.setOnClickListener(View.OnClickListener {
+        holder.itemView.setOnClickListener {
             val exampleIntent = Intent(mContext, mExamples[position].mExampleActivityClass)
             mContext.startActivity(exampleIntent)
-        })
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
