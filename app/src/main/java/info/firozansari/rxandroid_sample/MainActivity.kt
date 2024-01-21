@@ -26,26 +26,26 @@ class MainActivity : AppCompatActivity() {
         val exampleActivityAndNames: MutableList<ExampleActivityAndName> = ArrayList()
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                SimpleExampleActivity::class.java,
-                "Simple Examples"
+                OperatorActivity::class.java,
+                "Operator Examples"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                Example2Activity::class.java,
-                "Favorite Tv Shows"
+                SubjectActivity::class.java,
+                "Subject Examples"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 NetworkActivity::class.java,
-                "Network Example"
+                "Network Examples"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 SearchActivity::class.java,
-                "Search Example"
+                "Search Examples"
             )
         )
         return exampleActivityAndNames

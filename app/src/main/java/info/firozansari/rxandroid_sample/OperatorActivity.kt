@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Action
 import io.reactivex.rxjava3.functions.Consumer
 
-class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var resultTxt: TextView
     private lateinit var choiceSpinner: Spinner
@@ -25,6 +25,28 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         super.onCreate(savedInstanceState)
         configureLayout()
         populateSpinner()
+    }
+
+    private fun configureLayout() {
+        setContentView(R.layout.activity_operator)
+        resultTxt = findViewById(R.id.result_text)
+        choiceSpinner = findViewById(R.id.choice_spinner)
+        choiceSpinner.onItemSelectedListener = this
+    }
+
+    private fun populateSpinner(){
+        choiceList = resources.getStringArray(R.array.operator_array).toList()
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.operator_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears.
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner.
+            choiceSpinner.adapter = adapter
+        }
     }
 
     private fun createSimpleObservable() {
@@ -152,27 +174,6 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         )
     }
 
-    private fun configureLayout() {
-        setContentView(R.layout.activity_simple_example)
-        resultTxt = findViewById(R.id.result_text)
-        choiceSpinner = findViewById(R.id.choice_spinner)
-        choiceSpinner.onItemSelectedListener = this
-    }
-
-    private fun populateSpinner(){
-        choiceList = resources.getStringArray(R.array.operator_array).toList()
-
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.operator_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears.
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner.
-            choiceSpinner.adapter = adapter
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -192,6 +193,6 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     companion object {
-        val TAG = SimpleExampleActivity::class.java.simpleName
+        val TAG = OperatorActivity::class.java.simpleName
     }
 }

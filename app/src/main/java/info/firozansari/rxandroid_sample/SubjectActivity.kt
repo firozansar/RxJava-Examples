@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class Example2Activity : AppCompatActivity() {
+class SubjectActivity : AppCompatActivity() {
     private val mTvShowSubscription: Disposable? = null
     private var mTvShowListView: RecyclerView? = null
     private var mProgressBar: ProgressBar? = null
@@ -55,7 +55,7 @@ class Example2Activity : AppCompatActivity() {
     }
 
     private fun configureLayout() {
-        setContentView(R.layout.activity_example_2)
+        setContentView(R.layout.activity_subject)
         mProgressBar = findViewById(R.id.loader) as ProgressBar?
         mTvShowListView = findViewById(R.id.tv_show_list) as RecyclerView?
         mTvShowListView?.layoutManager = LinearLayoutManager(this)
