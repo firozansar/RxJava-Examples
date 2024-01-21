@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="planets_array">
+    <string-array name="operator_array">
         <item>Simple Observable</item>
         <item>Flatmap - Filter</item>
         <item>Earth</item>
         <item>Mars</item>
+    </string-array>
+    <string-array name="city_array">
+        <item>London</item>
+        <item>Edinburgh</item>
+        <item>Manchester</item>
+        <item>Bristol</item>
+        <item>Birmingham</item>
     </string-array>
 </resources>

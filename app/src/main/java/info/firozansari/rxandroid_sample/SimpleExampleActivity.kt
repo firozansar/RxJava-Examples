@@ -160,11 +160,11 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     private fun populateSpinner(){
-        choiceList = resources.getStringArray(R.array.planets_array).toList()
+        choiceList = resources.getStringArray(R.array.operator_array).toList()
 
         ArrayAdapter.createFromResource(
             this,
-            R.array.planets_array,
+            R.array.operator_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
@@ -179,10 +179,6 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         disposables.clear()
     }
 
-    companion object {
-        val TAG = SimpleExampleActivity::class.java.simpleName
-    }
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when(position){
             0 -> createSimpleObservable()
@@ -193,5 +189,9 @@ class SimpleExampleActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         resultTxt.text = ""
+    }
+
+    companion object {
+        val TAG = SimpleExampleActivity::class.java.simpleName
     }
 }
