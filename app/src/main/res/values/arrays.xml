@@ -13,4 +13,10 @@
         <item>Bristol</item>
         <item>Birmingham</item>
     </string-array>
+    <string-array name="subject_array">
+        <item>Async Subject</item>
+        <item>Behaviour Subject</item>
+        <item>Publish Subject</item>
+        <item>Replay Subject</item>
+    </string-array>
 </resources>
