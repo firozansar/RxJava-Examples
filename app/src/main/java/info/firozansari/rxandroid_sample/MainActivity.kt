@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val exampleActivityAndNames: MutableList<ExampleActivityAndName> = ArrayList()
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                Example1Activity::class.java,
+                SimpleExampleActivity::class.java,
                 "Example 1: Simple Color List"
             )
         )
@@ -43,14 +43,14 @@ class MainActivity : AppCompatActivity() {
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
-                Example4Activity::class.java,
+                OperatorsActivity::class.java,
                 "Example 4: Button Counter"
             )
         )
         exampleActivityAndNames.add(
             ExampleActivityAndName(
                 Example5Activity::class.java,
-                "Example 6: City Search"
+                "Example 5: City Search"
             )
         )
         return exampleActivityAndNames

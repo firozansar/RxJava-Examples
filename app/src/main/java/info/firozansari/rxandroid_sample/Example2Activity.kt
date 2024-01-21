@@ -17,7 +17,7 @@ class Example2Activity : AppCompatActivity() {
     private var mTvShowListView: RecyclerView? = null
     private var mProgressBar: ProgressBar? = null
     private var mSimpleAdapter: SimpleAdapter? = null
-    private var mRestClient: RestClient? = null
+    private lateinit var mRestClient: RestClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mRestClient = RestClient(this)

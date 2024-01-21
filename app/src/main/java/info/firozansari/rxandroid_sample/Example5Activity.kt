@@ -9,8 +9,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.reactivestreams.Subscription
+import java.util.concurrent.TimeUnit
+import java.util.function.Consumer
 
 class Example5Activity : AppCompatActivity() {
     private var mRestClient: RestClient? = null
@@ -18,7 +22,7 @@ class Example5Activity : AppCompatActivity() {
     private var mNoResultsIndicator: TextView? = null
     private var mSearchResults: RecyclerView? = null
     private var mSearchResultsAdapter: SimpleAdapter? = null
-    private var mSearchResultsSubject: PublishSubject<String>? = null
+    private lateinit var mSearchResultsSubject: PublishSubject<String>
     private lateinit var mTextWatchSubscription: Subscription
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +36,12 @@ class Example5Activity : AppCompatActivity() {
         mSearchResultsSubject = PublishSubject.create()
 //        mTextWatchSubscription = mSearchResultsSubject
 //            .debounce(400, TimeUnit.MILLISECONDS)
-//            .observeOn(Schedulers.io())
-//            .map(object : Function<String?, List<String?>?>() {
-//                fun call(s: String?): List<String> {
-//                    return mRestClient!!.searchForCity(s!!)
-//                }
-//            })
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(object : Observer<List<String?>?>() {
-//                fun onCompleted() {}
-//                fun onError(e: Throwable?) {}
-//                fun onNext(cities: List<String?>) {
-//                    handleSearchResults(cities)
+//            .subscribeOn(Schedulers.io()) // "work" on io thread
+//            .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
+//            .map { t -> mRestClient?.searchForCity(t) }
+//            .subscribe(object : Consumer<List<String>> {
+//                override fun accept(t: List<String>) {
+//                    handleSearchResults(t)
 //                }
 //            })
     }

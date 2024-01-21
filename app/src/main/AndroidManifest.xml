@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".Example1Activity"
+            android:name=".SimpleExampleActivity"
             android:parentActivityName=".MainActivity"
             />
 
@@ -34,7 +34,7 @@
             />
 
         <activity
-            android:name=".Example4Activity"
+            android:name=".OperatorsActivity"
             android:parentActivityName=".MainActivity"
             />
 
@@ -42,6 +42,7 @@
             android:name=".Example5Activity"
             android:parentActivityName=".MainActivity"
             />
+
     </application>
 
 </manifest>
