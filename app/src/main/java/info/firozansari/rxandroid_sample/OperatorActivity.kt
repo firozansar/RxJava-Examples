@@ -204,11 +204,6 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        disposables.clear()
-    }
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
             0 -> createSimpleObservable()
@@ -220,6 +215,11 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         resultTxt.text = ""
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
     }
 
     companion object {

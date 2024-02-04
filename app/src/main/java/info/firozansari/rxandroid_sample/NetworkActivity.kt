@@ -8,11 +8,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import info.firozansari.rxandroid_sample.model.Data
+import info.firozansari.rxandroid_sample.model.DataSource
+import info.firozansari.rxandroid_sample.model.DiskDataSource
+import info.firozansari.rxandroid_sample.model.MemoryDataSource
+import info.firozansari.rxandroid_sample.model.NetworkDataSource
 import info.firozansari.rxandroid_sample.model.User
 import info.firozansari.rxandroid_sample.model.UserDetails
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -23,18 +29,24 @@ class NetworkActivity : AppCompatActivity() {
     private lateinit var mErrorMessage: TextView
     private lateinit var mSimpleAdapter: SimpleAdapter
     private lateinit var restClient: RestClient
+    private lateinit var dataSource: DataSource
 
     private lateinit var cricketFansObservable: Observable<List<User>>
     private lateinit var footballFansObservable: Observable<List<User>>
     private lateinit var userListObservable: Observable<List<User>>
     private lateinit var userDetailsObservable: Observable<UserDetails>
+
+    private val disposables = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restClient = RestClient(this)
+        dataSource = DataSource(MemoryDataSource(), DiskDataSource(), NetworkDataSource())
         configureLayout()
         //createSimpleExample()
         //createZipExample()
-        createFlatmapZipExample()
+        createCacheExample()
+        //createFlatmapZipExample()
     }
 
     private fun createSimpleExample() {
@@ -77,6 +89,26 @@ class NetworkActivity : AppCompatActivity() {
             restClient.getUserDetails
         }
         doFlatMapWithZip()
+    }
+
+    private fun createCacheExample() {
+        val memory = dataSource.dataFromMemory()
+        val disk = dataSource.dataFromDisk()
+        val network = dataSource.dataFromNetwork()
+        disposables.add(Observable.concat(disk, network, memory)
+            .firstElement()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .toObservable()
+            .subscribe({ data: Data? ->
+                displayResults(listOf(data?.source ?: ""))
+                Log.d(TAG, " onNext : " + data?.source)
+            }
+            ) { e: Throwable ->
+                displayErrorMessage()
+                Log.d(TAG, " onError : " + e.message)
+            }
+        )
     }
 
     private fun displayResults(values: List<String>) {
@@ -169,6 +201,11 @@ class NetworkActivity : AppCompatActivity() {
                         Log.d(TAG, "onComplete")
                     }
                 })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
     }
 
     companion object {
