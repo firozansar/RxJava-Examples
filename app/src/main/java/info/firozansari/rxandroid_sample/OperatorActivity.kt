@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Action
+import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.functions.Consumer
 
 class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -34,7 +35,7 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         choiceSpinner.onItemSelectedListener = this
     }
 
-    private fun populateSpinner(){
+    private fun populateSpinner() {
         choiceList = resources.getStringArray(R.array.operator_array).toList()
 
         ArrayAdapter.createFromResource(
@@ -52,6 +53,8 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     private fun createSimpleObservable() {
         resultTxt.text = ""
         // Example 1
+        // Transform the given [value] into an Observable: Observable.just(value)
+        //
         val source = Observable.create { emitter: ObservableEmitter<String> ->
             emitter.onNext("Alpha")
             emitter.onNext("Beta")
@@ -109,22 +112,23 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 .map(String::length)
                 .subscribe(System.out::println));*/
 
-
         // An empty Observable is essentially RxJava's concept of null. It is the absence of a value (or
         //technically, "values"). Empty Observables are much more elegant than nulls because
         //operations will simply continue empty rather than throw NullPointerExceptions.
         val empty = Observable.empty<String>()
-        disposables.add(empty.subscribe({ x: String? -> println(x) }, { obj: Throwable -> obj.printStackTrace() }
+        disposables.add(empty.subscribe(
+            { x: String? -> println(x) },
+            { obj: Throwable -> obj.printStackTrace() }
         ) { Log.d(TAG, "Done!") })
-
 
         // A close cousin of Observable.empty() is Observable.never(). The only difference
         //between them is that it never calls onComplete(), forever leaving observers waiting for
         //emissions but never actually giving any
         val never = Observable.never<String>()
-        disposables.add(never.subscribe({ x: String? -> println(x) }, { obj: Throwable -> obj.printStackTrace() }
+        disposables.add(never.subscribe(
+            { x: String? -> println(x) },
+            { obj: Throwable -> obj.printStackTrace() }
         ) { Log.d(TAG, "Done!") })
-
 
         // This too is something you likely will only do with testing, but you can create an
         //Observable that immediately calls onError() with a specified exception
@@ -158,10 +162,16 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         // each String. We filtered only for String values that are numeric using a regular expression [0-9]+
         // (eliminating FOXTROT, TANGO, and WHISKEY) and then turned each emission into an Integer.
         resultTxt.append(" Initial value : " + "521934/2342/FOXTROT, 21962/12112/78886/TANGO, 283242/4542/WHISKEY/2348562 \n")
-        disposables.add(Observable.just("521934/2342/FOXTROT", "21962/12112/78886/TANGO", "283242/4542/WHISKEY/2348562")
-            .flatMap { s: String -> Observable.fromArray(*s.split("/").toTypedArray()) }
-            .filter { s: String -> s.matches("[0-9]+".toRegex()) } //use regex to filter integers
-            .map { s: String? -> Integer.valueOf(s) }
+        disposables.add(Observable.just(
+            "521934/2342/FOXTROT",
+            "21962/12112/78886/TANGO",
+            "283242/4542/WHISKEY/2348562"
+        )
+            .flatMap { s: String ->
+                Observable.fromArray(*s.split("/").toTypedArray()) //[521934, 2342, FOXTROT]
+            }
+            .filter { s: String -> s.matches("[0-9]+".toRegex()) } //use regex to filter String containing integers like "521934", "2342" etc.
+            .map { s: String? -> Integer.valueOf(s) }// convert to Int
             .subscribe({ value: Int ->
                 resultTxt.append(" onNext : value : $value \n")
             },
@@ -174,6 +184,25 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         )
     }
 
+    private fun combineLatestExample() {
+        resultTxt.text = ""
+        // Sum up the latest values of [first] and [second] whenever one of the Observables emits a new value.
+        // Use case: Two input fields in a calculator that need to be summed up and the result should be
+        // updated every time one of the inputs change.
+        resultTxt.append(" Initial value : " + "5 and 7")
+        val first = Observable.just(5)
+        val second = Observable.just(7)
+        disposables.add(Observable.combineLatest(
+            first,
+            second,
+            BiFunction<Int, Int, Int> { t1, t2 -> t1 + t2 }).subscribe({ value: Int ->
+            resultTxt.append(" onNext : value : $value \n")
+        },
+            { e: Throwable ->
+                resultTxt.append(" onError : " + e.message + "\n")
+            })
+        )
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -181,9 +210,10 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when(position){
+        when (position) {
             0 -> createSimpleObservable()
             1 -> flatmapFilterExample()
+            2 -> combineLatestExample()
             else -> createSimpleObservable()
         }
     }
@@ -193,6 +223,6 @@ class OperatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     companion object {
-        val TAG = OperatorActivity::class.java.simpleName
+        val TAG: String = OperatorActivity::class.java.simpleName
     }
 }

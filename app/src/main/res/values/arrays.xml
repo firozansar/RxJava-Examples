@@ -3,7 +3,7 @@
     <string-array name="operator_array">
         <item>Simple Observable</item>
         <item>Flatmap - Filter</item>
-        <item>Earth</item>
+        <item>Combine Latest</item>
         <item>Mars</item>
     </string-array>
     <string-array name="city_array">
