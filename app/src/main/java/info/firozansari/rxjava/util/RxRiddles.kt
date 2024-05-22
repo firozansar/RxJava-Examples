@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample.model
+package info.firozansari.rxjava.util
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe

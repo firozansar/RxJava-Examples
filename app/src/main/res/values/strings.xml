@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RxAndroid Sample</string>
+    <string name="app_name">RxJava2 Sample</string>
     <string name="example_list_title">Example List</string>
     <string name="error_message">Oops. An Error Occurred.</string>
     <string name="increment">Increment</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="info.firozansari.rxandroid_sample">
+    package="info.firozansari.rxjava">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name="info.firozansari.rxjava.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,23 +19,23 @@
         </activity>
 
         <activity
-            android:name=".OperatorActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="info.firozansari.rxjava.activity.OperatorActivity"
+            android:parentActivityName="info.firozansari.rxjava.activity.MainActivity"
             />
 
         <activity
-            android:name=".SubjectActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="info.firozansari.rxjava.activity.SubjectActivity"
+            android:parentActivityName="info.firozansari.rxjava.activity.MainActivity"
             />
 
         <activity
-            android:name=".NetworkActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="info.firozansari.rxjava.activity.NetworkActivity"
+            android:parentActivityName="info.firozansari.rxjava.activity.MainActivity"
             />
 
         <activity
-            android:name=".SearchActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="info.firozansari.rxjava.activity.SearchActivity"
+            android:parentActivityName="info.firozansari.rxjava.activity.MainActivity"
             />
 
     </application>

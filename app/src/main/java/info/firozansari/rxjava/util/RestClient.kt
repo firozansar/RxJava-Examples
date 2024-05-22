@@ -1,8 +1,9 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.util
 
 import android.content.Context
-import info.firozansari.rxandroid_sample.model.User
-import info.firozansari.rxandroid_sample.model.UserDetails
+import info.firozansari.rxjava.R
+import info.firozansari.rxjava.model.User
+import info.firozansari.rxjava.model.UserDetails
 import java.util.Locale
 
 /**

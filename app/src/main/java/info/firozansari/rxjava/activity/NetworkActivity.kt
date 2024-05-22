@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +8,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import info.firozansari.rxandroid_sample.model.Data
-import info.firozansari.rxandroid_sample.model.DataSource
-import info.firozansari.rxandroid_sample.model.DiskDataSource
-import info.firozansari.rxandroid_sample.model.MemoryDataSource
-import info.firozansari.rxandroid_sample.model.NetworkDataSource
-import info.firozansari.rxandroid_sample.model.User
-import info.firozansari.rxandroid_sample.model.UserDetails
+import info.firozansari.rxjava.R
+import info.firozansari.rxjava.util.RestClient
+import info.firozansari.rxjava.util.SimpleAdapter
+import info.firozansari.rxjava.model.Data
+import info.firozansari.rxjava.model.DataSource
+import info.firozansari.rxjava.model.DiskDataSource
+import info.firozansari.rxjava.model.MemoryDataSource
+import info.firozansari.rxjava.model.NetworkDataSource
+import info.firozansari.rxjava.model.User
+import info.firozansari.rxjava.model.UserDetails
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer

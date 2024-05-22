@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import info.firozansari.rxjava.R
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable

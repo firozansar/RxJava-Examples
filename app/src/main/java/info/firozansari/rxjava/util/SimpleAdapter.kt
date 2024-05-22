@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.util
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import info.firozansari.rxjava.R
 
 /**
  * Adapter used to map a String to a text view.

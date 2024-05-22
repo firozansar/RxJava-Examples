@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.model
 
 import android.app.Activity
 

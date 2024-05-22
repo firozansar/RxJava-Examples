@@ -1,9 +1,11 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.activity
 
 import android.os.Bundle
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import info.firozansari.rxjava.R
+import info.firozansari.rxjava.util.RestClient
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -26,7 +28,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun createObservables() {
-        disposables.add(RxSearchObservable.fromView(searchView)
+        disposables.add(
+            RxSearchObservable.fromView(searchView)
             .debounce(300, TimeUnit.MILLISECONDS)
             .filter { text: String? ->
                 if (text.isNullOrEmpty()) {

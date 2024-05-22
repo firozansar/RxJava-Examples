@@ -1,10 +1,13 @@
-package info.firozansari.rxandroid_sample
+package info.firozansari.rxjava.activity
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import info.firozansari.rxjava.R
+import info.firozansari.rxjava.util.ExampleAdapter
+import info.firozansari.rxjava.model.ExampleActivityAndName
 
 class MainActivity : AppCompatActivity() {
 

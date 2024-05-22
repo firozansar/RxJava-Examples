@@ -1,4 +1,4 @@
-package info.firozansari.rxandroid_sample.model
+package info.firozansari.rxjava.model
 
 data class UserDetails(
     var id: Long = 0,
