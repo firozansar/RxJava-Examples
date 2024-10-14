@@ -59,6 +59,7 @@ class NetworkActivity : AppCompatActivity() {
                  */
                 restClient.favoriteTvShows
             }
+
         tvShowObservable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
